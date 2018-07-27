@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
 use OSS\OssClient;
-use panwenbin\laravel\aliyunoss\plugins\FullUrl;
+use panwenbin\laravel\aliyunoss\plugins\GetTemporaryUrl;
+use panwenbin\laravel\aliyunoss\plugins\getUrl;
 use panwenbin\laravel\aliyunoss\plugins\UploadFile;
 
 class AliyunOssFlysystemServiceProvider extends ServiceProvider
@@ -39,7 +40,8 @@ class AliyunOssFlysystemServiceProvider extends ServiceProvider
             $adapter = new AliyunOssFlysystemAdapter($client, $bucket, $prefix);
             $filesystem = new Filesystem($adapter);
             $filesystem->addPlugin(new UploadFile());
-            $filesystem->addPlugin(new FullUrl());
+            $filesystem->addPlugin(new GetUrl());
+            $filesystem->addPlugin(new GetTemporaryUrl());
 
             return $filesystem;
         });

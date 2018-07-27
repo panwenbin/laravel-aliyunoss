@@ -35,6 +35,6 @@
 ## 插件
 ```
 Storage::disk('oss')->uploadFile($md5_path, '/local_fle_path/1.png', ['mimetype' => 'image/png','filename' => 'filename_by_down.png']);
-Storage::disk('oss')->fullUrl($path); // 永久地址
-Storage::disk('oss')->fullUrl($path, 3600); // 临时地址
+Storage::disk('oss')->getUrl($path); // 永久地址
+Storage::disk('oss')->getTemporaryUrl($path, 3600); // 临时地址
 ```

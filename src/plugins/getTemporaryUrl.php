@@ -1,16 +1,17 @@
 <?php
+/**
+ * @author Pan Wenbin <panwenbin@gmail.com>
+ */
 
 namespace panwenbin\laravel\aliyunoss\plugins;
 
 use League\Flysystem\Plugin\AbstractPlugin;
 
 /**
- * FullUrl class
- * 获取完全地址
- *
- * @author  ApolloPY <ApolloPY@Gmail.com>
+ * Class getTemporaryUrl
+ * @package panwenbin\laravel\aliyunoss\plugins
  */
-class FullUrl extends AbstractPlugin
+class GetTemporaryUrl extends AbstractPlugin
 {
     /**
      * Get the method name.
@@ -19,7 +20,7 @@ class FullUrl extends AbstractPlugin
      */
     public function getMethod()
     {
-        return 'fullUrl';
+        return 'getTemporaryUrl';
     }
 
     /**
@@ -35,10 +36,10 @@ class FullUrl extends AbstractPlugin
             return false;
         }
 
-        if (!method_exists($this->filesystem->getAdapter(), 'fullUrl')) {
+        if (!method_exists($this->filesystem->getAdapter(), 'getTemporaryUrl')) {
             return false;
         }
 
-        return $this->filesystem->getAdapter()->fullUrl($path, $expires);
+        return $this->filesystem->getAdapter()->getTemporaryUrl($path, $expires);
     }
 }

@@ -473,28 +473,45 @@ class AliyunOssFlysystemAdapter extends AbstractAdapter
     }
 
     /**
-     * 获取完整地址(插件方法)
+     * 获取永久地址(插件方法或者Illuminate\Filesystem\FilesystemAdapter调用)
      * @param $path
-     * @param int $expires
      * @return null|string
      * @throws \ReflectionException
      */
-    public function fullUrl($path, $expires = 0)
+    public function getUrl($path)
     {
         $object = $this->applyPathPrefix($path);
 
-        if ($expires) {
-            try {
-                $url = $this->ossClient->signUrl($this->bucket, $object, $expires);
-            } catch (OssException $e) {
-                return null;
-            }
+        $class = new ReflectionClass(get_class($this->ossClient));
+        $method = $class->getMethod("generateHostname");
+        $method->setAccessible(true);
+        $hostname = $method->invoke($this->ossClient, $this->bucket);
+        $url = 'http://' . $hostname . '/' . $object;
+
+        return $url;
+    }
+
+    /**
+     * 获取临时地址(插件方法或者Illuminate\Filesystem\FilesystemAdapter调用)
+     * @param $path
+     * @param $expiration
+     * @param array $options
+     * @return null|string
+     */
+    public function getTemporaryUrl($path, $expiration, array $options = [])
+    {
+        $object = $this->applyPathPrefix($path);
+
+        if ($expiration instanceof \DateTimeInterface) {
+            $expiration = $expiration->getTimestamp() - time();
         } else {
-            $class = new ReflectionClass(get_class($this->ossClient));
-            $method = $class->getMethod("generateHostname");
-            $method->setAccessible(true);
-            $hostname = $method->invoke($this->ossClient, $this->bucket);
-            $url = 'http://' . $hostname . '/' . $object;
+            $expiration = (int)$expiration;
+        }
+
+        try {
+            $url = $this->ossClient->signUrl($this->bucket, $object, $expiration, OssClient::OSS_HTTP_GET, $options);
+        } catch (OssException $e) {
+            return null;
         }
 
         return $url;
