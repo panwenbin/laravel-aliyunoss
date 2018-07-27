@@ -1,0 +1,30 @@
+{
+  "name": "panwenbin/laravel-aliyunoss",
+  "description": "Laravel Service Provider for aliyun oss implements Flysystem",
+  "type": "library",
+  "require": {
+    "aliyuncs/oss-sdk-php": "^2.3",
+    "league/flysystem": "^1.0",
+    "laravel/framework": "^5.5"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pan Wenbin",
+      "email": "panwenbin@gmail.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "autoload": {
+    "psr-4": {
+      "panwenbin\\laravel\\aliyunoss\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "panwenbin\\laravel\\aliyunoss\\AliyunOssFlysystemServiceProvider"
+      ]
+    }
+  }
+}
