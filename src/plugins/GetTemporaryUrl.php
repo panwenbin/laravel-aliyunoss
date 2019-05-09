@@ -31,7 +31,7 @@ class GetTemporaryUrl extends AbstractPlugin
      * @param array $options
      * @return string|false
      */
-    public function handle($path, $expires = 0)
+    public function handle($path, $expires = 0, array $options = [])
     {
         if (!method_exists($this->filesystem, 'getAdapter')) {
             return false;
@@ -41,6 +41,6 @@ class GetTemporaryUrl extends AbstractPlugin
             return false;
         }
 
-        return $this->filesystem->getAdapter()->getTemporaryUrl($path, $expires);
+        return $this->filesystem->getAdapter()->getTemporaryUrl($path, $expires, $options);
     }
 }
