@@ -11,7 +11,7 @@ use Illuminate\Support\ServiceProvider;
 use League\Flysystem\Filesystem;
 use OSS\OssClient;
 use panwenbin\laravel\aliyunoss\plugins\GetTemporaryUrl;
-use panwenbin\laravel\aliyunoss\plugins\getUrl;
+use panwenbin\laravel\aliyunoss\plugins\GetUrl;
 use panwenbin\laravel\aliyunoss\plugins\UploadFile;
 
 class AliyunOssFlysystemServiceProvider extends ServiceProvider

@@ -28,6 +28,7 @@ class GetTemporaryUrl extends AbstractPlugin
      *
      * @param string $path
      * @param int $expires
+     * @param array $options
      * @return string|false
      */
     public function handle($path, $expires = 0)
