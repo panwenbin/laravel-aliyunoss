@@ -430,6 +430,7 @@ class AliyunOssFlysystemAdapter extends AbstractAdapter
      * 获取options
      *
      * @param Config $config
+     * @return array
      */
     protected function getOptionsFromConfig(Config $config)
     {
@@ -439,6 +440,8 @@ class AliyunOssFlysystemAdapter extends AbstractAdapter
                 $options[$ossOption] = $config->get($option);
             }
         }
+
+        return $options;
     }
 
     /**
